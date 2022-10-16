@@ -20,9 +20,9 @@ function App() {
       </Navbar>
       <h1 href='/' style={{cursor: 'pointer'}}>Meme Website</h1>
       <Routes>
+        <Route path='/auth' element={<AuthPage/>}></Route>
         <Route path='/' element={<MemePage />} />
         <Route path='/favorites' element={<FavoritesPage/>} />
-        <Route path='/auth' element={<AuthPage/>}></Route>
       </Routes>
     </div>
   );
