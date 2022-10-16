@@ -1,30 +1,52 @@
-import React from 'react';
-import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { Navbar, Button } from 'reactstrap';
-import MemePage from './pages/MemePage'; 
-import FavoritesPage from './pages/FavoritesPage';
+import React from "react";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Navigate,
+  Routes
+} from "react-router-dom";
+import MemePage from './pages/MemePage';
 import AuthPage from './pages/AuthPage';
+import { AuthContextProvider, currentAuthState } from "./fireConnect";
+
+const RouteWithAuth = ({ component: C, ...props }) => {
+  const { isAuthenticated } = currentAuthState();
+  console.log(`AuthenticatedRoute: ${isAuthenticated}`)
+  return (
+    <Routes>
+      <Route
+        {...props}
+        render={(routeProps) =>
+          isAuthenticated ? <C {...routeProps} /> : <Navigate to="/login" />
+        }
+      />
+    </Routes>
+  );
+};
+const RouteWithOutAuth = ({ component: C, ...props }) => {
+  const { isAuthenticated } = currentAuthState();
+  console.log(`AuthenticatedRoute: ${isAuthenticated}`)
+  return (
+    <Routes>
+      <Route
+        {...props}
+        render={(routeProps) =>
+          !isAuthenticated ? <C {...routeProps} /> : <Navigate to="/" />
+        }
+      />
+    </Routes>
+  );
+};
 
 function App() {
-  const navigate = useNavigate();
-  const navigateAuth = () => {
-
-    navigate('/auth');
-  };
   return (
-    <div className="App">
-      <Navbar>
-        <Button color='primary'>Home</Button> 
-        <Button onClick={navigateAuth} color='danger'>Authenticate</Button> 
-      </Navbar>
-      <h1 href='/' style={{cursor: 'pointer'}}>Meme Website</h1>
-      <Routes>
-        <Route path='/auth' element={<AuthPage/>}></Route>
-        <Route path='/' element={<MemePage />} />
-        <Route path='/favorites' element={<FavoritesPage/>} />
-      </Routes>
-    </div>
+    <AuthContextProvider>
+      <Router>
+        <RouteWithOutAuth path="/login" element={<AuthPage />} />
+        <RouteWithAuth path="/" element={<MemePage />} />
+      </Router>
+    </AuthContextProvider>
   );
 }
 
