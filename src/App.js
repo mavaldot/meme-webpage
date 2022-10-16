@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Navbar, Button } from 'reactstrap';
 import MemePage from './pages/MemePage'; 
 import FavoritesPage from './pages/FavoritesPage';
-import { AuthPage } from './pages/AuthPage';
+import AuthPage from './pages/AuthPage';
 
 function App() {
   const navigate = useNavigate();
