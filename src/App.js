@@ -1,52 +1,36 @@
 import React from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Navigate,
-  Routes
-} from "react-router-dom";
-import MemePage from './pages/MemePage';
-import AuthPage from './pages/AuthPage';
-import { AuthContextProvider, currentAuthState } from "./fireConnect";
-
-const RouteWithAuth = ({ component: C, ...props }) => {
-  const { isAuthenticated } = currentAuthState();
-  console.log(`AuthenticatedRoute: ${isAuthenticated}`)
-  return (
-    <Routes>
-      <Route
-        {...props}
-        render={(routeProps) =>
-          isAuthenticated ? <C {...routeProps} /> : <Navigate to="/login" />
-        }
-      />
-    </Routes>
-  );
-};
-const RouteWithOutAuth = ({ component: C, ...props }) => {
-  const { isAuthenticated } = currentAuthState();
-  console.log(`AuthenticatedRoute: ${isAuthenticated}`)
-  return (
-    <Routes>
-      <Route
-        {...props}
-        render={(routeProps) =>
-          !isAuthenticated ? <C {...routeProps} /> : <Navigate to="/" />
-        }
-      />
-    </Routes>
-  );
-};
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext";
+import MemePage from "./pages/MemePage";
+import AuthPage from "./pages/AuthPage";
+import AccountProtected from "./components/AccountProtected";
 
 function App() {
+  /*
+  const navigate = useNavigate();
+  const navigateAuth = () => {
+    navigate('/auth');
+  };
+  */
+
   return (
-    <AuthContextProvider>
-      <Router>
-        <RouteWithOutAuth path="/login" element={<AuthPage />} />
-        <RouteWithAuth path="/" element={<MemePage />} />
-      </Router>
-    </AuthContextProvider>
+    <div className="App">
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          {/**<Route path="/memes" element={<MemePage/>}/> */}  
+          <Route
+            path="/memes"
+            element={
+              <AccountProtected>
+                <MemePage/>
+              </AccountProtected>
+            }
+          />
+        </Routes>
+      </AuthContextProvider>
+    </div>
   );
 }
 

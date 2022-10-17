@@ -15,9 +15,9 @@ const MemePage = (props) => {
         const getMemes = async () => {
             res = await getMemePage(currentPage);
             setMemeList(res.data.memes);
-            //console.log(res);
-            //console.log('a');
-            //console.log(res.data.memes)
+            console.log(res);
+            console.log('a');
+            console.log(res.data.memes)
             setLoading(false);  
         }
         getMemes();
@@ -38,4 +38,5 @@ const MemePage = (props) => {
 
 
 }
+
 export default MemePage;
