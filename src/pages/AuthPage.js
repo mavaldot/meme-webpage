@@ -18,13 +18,26 @@ const AuthPage = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { signIn,logOut } = UserAuth();
+    const { signIn, register} = UserAuth();
 
     const handleSignIn = async (e) => {
         e.preventDefault();
         setError('')
         try {
             await signIn(email, password);
+            navigate('/memes')
+        } catch (error) {
+            setError(error.message)
+            console.log(error.message)
+        }
+
+    }
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        setError('')
+        try {
+            await register(email, password);
             navigate('/memes')
         } catch (error) {
             setError(error.message)
@@ -46,7 +59,7 @@ const AuthPage = () => {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Iniciar Sesion
                     </Typography>
                     <Box
                         component="form"
@@ -59,7 +72,7 @@ const AuthPage = () => {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Correo Electronico"
                             name="email"
                             autoComplete="email"
                             onChange={(event) => setEmail(event.target.value)}
@@ -70,7 +83,7 @@ const AuthPage = () => {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             onChange={(event) => setPassword(event.target.value)}
@@ -84,9 +97,17 @@ const AuthPage = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Iniciar Sesion
                         </Button>
-                        
+                        <Button
+                            onClick={handleRegister}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Registrarme
+                        </Button>
                     </Box>
                 </Box>
             </Container>
