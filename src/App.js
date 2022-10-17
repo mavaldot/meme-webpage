@@ -1,9 +1,11 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import MemePage from "./pages/MemePage";
 import AuthPage from "./pages/AuthPage";
+import LogOutPage from "./pages/LogOutPage";
 import AccountProtected from "./components/AccountProtected";
 
 function App() {
@@ -19,12 +21,13 @@ function App() {
       <AuthContextProvider>
         <Routes>
           <Route path="/" element={<AuthPage />} />
-          {/**<Route path="/memes" element={<MemePage/>}/> */}  
+          {/**<Route path="/memes" element={<MemePage/>}/> */}
           <Route
             path="/memes"
             element={
               <AccountProtected>
-                <MemePage/>
+                <LogOutPage/>
+                <MemePage />
               </AccountProtected>
             }
           />
