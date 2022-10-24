@@ -8,6 +8,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { db } from "../fireConnect";
+import {collection, addDoc, Timestamp,doc, setDoc} from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const theme = createTheme();
 
@@ -17,6 +20,7 @@ const AuthPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { signIn, register } = UserAuth();
+  const auth = getAuth();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -35,12 +39,35 @@ const AuthPage = () => {
     setError("");
     try {
       await register(email, password);
-      navigate("/memes");
+      await registerOnDataBase()
+      //onAuthStateChanged()
+      navigate("/memes")
+      //navigate("/memes");
     } catch (error) {
       setError(error.message);
       console.log(error.message);
     }
   };
+  const registerOnDataBase = async (e) => {
+    try {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const uid = user.uid;
+          await setDoc(doc(db, "user", uid), {email: email});
+          /*
+          await addDoc(collection(db,'user', uid), {
+            email: email
+          })
+          */
+        } else {
+        }
+      });  
+      
+    } catch (error){
+      alert(error)
+    }
+  }
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -95,9 +122,7 @@ const AuthPage = () => {
             >
               Iniciar Sesion
             </Button>
-            <Typography component="h10" variant="h10">
-              La Contraseña debe ser de minimo 6 caracteres
-            </Typography>
+         
             <Button
               onClick={handleRegister}
               type="submit"

@@ -10,6 +10,8 @@ const MemePage = (props) => {
     const [isLoading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
 
+   
+
     useEffect(() => {
         let res = {};
         const getMemes = async () => {
