@@ -29,10 +29,17 @@ const AuthPage = () => {
     setError("");
     try {
       await signIn(email, password);
-      navigate("/memes");
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const uid = user.uid;
+          console.log(`auth page: ${uid}`)
+          sessionStorage.setItem("uid", uid)
+          navigate("/memes");
+        } else {
+        }
+      });
     } catch (error) {
-      setError(error.message);
-      console.log(error.message);
+      alert(error)
     }
   };
 
