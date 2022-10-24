@@ -1,21 +1,5 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../fireConnect";
-const auth = getAuth();
-// { email: email, memes: [{meme: "", comment: ""}]}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 export const getFavoriteMeme = async (userId, memeId) => {

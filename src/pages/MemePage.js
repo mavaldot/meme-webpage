@@ -15,20 +15,6 @@ const MemePage = (props) => {
 
 
 
-    const registerOnDataBase = async (e) => {
-        try {
-          onAuthStateChanged(auth, async (user) => {
-            if (user) {
-              const uid = user.uid;
-              //Aqui va el metodo que usa el id del usuario
-            } else {
-            }
-          });
-    
-        } catch (error) {
-          alert(error)
-        }
-      }
 
 
 
