@@ -9,10 +9,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../fireConnect";
-import {collection, addDoc, Timestamp,doc, setDoc} from 'firebase/firestore'
+import { collection, addDoc, Timestamp, doc, setDoc } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const theme = createTheme();
+
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const { signIn, register } = UserAuth();
   const auth = getAuth();
+  
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -53,21 +55,26 @@ const AuthPage = () => {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           const uid = user.uid;
-          await setDoc(doc(db, "user", uid), {email: email});
-          /*
-          await addDoc(collection(db,'user', uid), {
-            email: email
-          })
-          */
+          await setDoc(doc(db, "user", uid), { email: email, memes: []});
         } else {
         }
-      });  
-      
-    } catch (error){
+      });
+
+    } catch (error) {
       alert(error)
     }
   }
-  
+  /*
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userLoged = user.uid;
+      return userLoged;
+    } 
+    else {
+    }
+  });
+  */
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -122,7 +129,7 @@ const AuthPage = () => {
             >
               Iniciar Sesion
             </Button>
-         
+
             <Button
               onClick={handleRegister}
               type="submit"
