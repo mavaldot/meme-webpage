@@ -13,13 +13,6 @@ const MemePage = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const auth = getAuth();
-
-
-
-
-
-
-
     useEffect(() => {
         let res = {};
         const getMemes = async () => {
@@ -30,8 +23,8 @@ const MemePage = (props) => {
             //console.log(res.data.memes)
             setLoading(false);
 
-            const uid = sessionStorage.getItem('uid')
-            console.log(uid + "El id de la sesion")
+            const uid = sessionStorage.getItem('uid');
+            console.log(uid + "El id de la sesion");
             //getFavoriteMemes(uid)
             //addFavoriteMeme(uid, 2, "chiste", "Muy bueno")
             //console.log("wasdsup")
@@ -51,16 +44,10 @@ const MemePage = (props) => {
         return (
             <div>
                 <Container>
-                    <MemeList memes={memeList}></MemeList>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Test
+                    <Button href="/favorites" variant="contained">
+                        Favorites
                     </Button>
-
+                    <MemeList memes={memeList}></MemeList>
                 </Container>
             </div>
         );

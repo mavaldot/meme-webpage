@@ -7,6 +7,7 @@ import MemePage from "./pages/MemePage";
 import AuthPage from "./pages/AuthPage";
 import LogOutPage from "./pages/LogOutPage";
 import AccountProtected from "./components/AccountProtected";
+import FavoritesPage from "./pages/FavoritesPage";
 
 function App() {
   /*
@@ -31,6 +32,7 @@ function App() {
               </AccountProtected>
             }
           />
+          <Route path="/favorites" element={<FavoritesPage/>}/>
         </Routes>
       </AuthContextProvider>
     </div>

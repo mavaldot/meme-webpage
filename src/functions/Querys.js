@@ -30,8 +30,17 @@ export const deleteFavoriteMeme = async (userId, memeId) => {
     const memeArrayPosition = userValues.memes.findIndex(x => x.memeId == memeId)
     userValues.memes.splice(memeArrayPosition, 1)
     await setDoc(doc(db, "user", userId), userValues);
+}
+
+export const deleteMemeFavorite = async (userId, memeFavorite) => {
+    const docSnap = await getDoc(doc(db, "user", userId))
+    let userValues = docSnap.data()
+    const memeArrayPosition = userValues.memes.findIndex(x => x.memeFavorite == memeFavorite)
+    userValues.memes.splice(memeArrayPosition, 1)
+    await setDoc(doc(db, "user", userId), userValues);
 
 }
+
 export const updateFavoriteMemeComment = async (userId,memeId, newComment) => {
     const docSnap = await getDoc(doc(db, "user", userId))
     let userValues = docSnap.data()

@@ -96,7 +96,7 @@ const AuthPage = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Boomer memes platform
+            Funny memes platform
           </Typography>
           <Box
             component="form"
