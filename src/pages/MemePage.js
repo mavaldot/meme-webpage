@@ -18,19 +18,10 @@ const MemePage = (props) => {
         const getMemes = async () => {
             res = await getMemePage(currentPage);
             setMemeList(res.data.memes);
-            //console.log(res);
-            //console.log('a');
-            //console.log(res.data.memes)
             setLoading(false);
 
             const uid = sessionStorage.getItem('uid');
             console.log(uid + "El id de la sesion");
-            //getFavoriteMemes(uid)
-            //addFavoriteMeme(uid, 2, "chiste", "Muy bueno")
-            //console.log("wasdsup")
-            //console.log(myMemes);
-            //deleteFavoriteMeme(uid, 2)
-            //updateFavoriteMemeComment(uid,1,"Mateo es muy inteligente")
 
 
         }

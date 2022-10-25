@@ -20,11 +20,6 @@ const FavoritesPage = (props) => {
             const favMemes = await getFavoriteMemes(uid);
             console.log(favMemes);
             setFavoritesList(favMemes.memes);
-            //addFavoriteMeme(uid, 2, "chiste", "Muy bueno")
-            //console.log("wasdsup")
-            //console.log(myMemes);
-            //deleteFavoriteMeme(uid, 2)
-            //updateFavoriteMemeComment(uid,1,"Mateo es muy inteligente")
 
             setLoading(false);
         }
@@ -35,7 +30,7 @@ const FavoritesPage = (props) => {
         <div>
             <div>
                 <Container>
-                    <Button color="danger" href="/memes" variant="contained">
+                    <Button href="/memes" variant="contained">
                         Back
                     </Button>
                     <FavoritesList memes={favoritesList}/>

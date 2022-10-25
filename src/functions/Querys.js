@@ -49,3 +49,11 @@ export const updateFavoriteMemeComment = async (userId,memeId, newComment) => {
     await setDoc(doc(db, "user", userId), userValues);
 }
 
+export const editMeme = async (userId, memeFavorite, newComment) => {
+    const docSnap = await getDoc(doc(db, "user", userId))
+    let userValues = docSnap.data()
+    const memeArrayPosition = userValues.memes.findIndex(x => x.memeFavorite == memeFavorite)
+    userValues.memes[memeArrayPosition].memeComment = newComment;
+    await setDoc(doc(db, "user", userId), userValues);
+}
+

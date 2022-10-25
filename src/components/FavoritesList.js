@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Row, Col, Card, CardImg, Button } from "reactstrap";
 import { addFavoriteMeme, deleteMemeFavorite } from '../functions/Querys';
-import { getFavoriteMemes } from '../functions/Querys';
+import { getFavoriteMemes, editMeme } from '../functions/Querys';
 
 const FavoritesList = (props) => {
 
@@ -11,6 +11,15 @@ const FavoritesList = (props) => {
     async function deleteMeme(memeFavorite) {
         const uid = sessionStorage.getItem('uid');
         await deleteMemeFavorite(uid, memeFavorite);
+        const favMemes = await getFavoriteMemes(uid);
+        setFavoritesList(favMemes.memes);
+    }
+
+    async function editMeme(memeFavorite) {
+        const uid = sessionStorage.getItem('uid');
+        console.log("hello");
+        let message = prompt('Please enter a new message');
+        await editMeme(uid, memeFavorite, message);
         const favMemes = await getFavoriteMemes(uid);
         setFavoritesList(favMemes.memes);
     }
